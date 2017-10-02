@@ -1,6 +1,6 @@
 fluidPage(
 
-#  tags$head(includeScript("google-analytics.js")),
+  tags$head(includeScript("analytics/analytics.js")),
 
   titlePanel(
     title = tags$div(
