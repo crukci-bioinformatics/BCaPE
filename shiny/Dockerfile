@@ -15,6 +15,7 @@ RUN R -e 'devtools::install_github("rstudio/DT")'
 
 RUN mkdir /srv/shiny-server/bcape
 RUN mkdir /srv/shiny-server/bcape/www
+RUN mkdir /srv/shiny-server/bcape/data
 RUN mkdir /srv/shiny-server/bcape/analytics
 
 COPY *.R /srv/shiny-server/bcape/
