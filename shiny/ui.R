@@ -13,7 +13,7 @@ fluidPage(
         )
       )
     ),
-    windowTitle = "BCaPE"    
+    windowTitle = "BCaPE"
   ),
 
   tabsetPanel(

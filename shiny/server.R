@@ -28,16 +28,16 @@ function(input, output, session) {
     ),
     server = TRUE
   )
-  
+
   modelSelectionTableProxy <- dataTableProxy('modelSelectionTable')
-  
+
   observeEvent(selection$selectedModel, {
     selectRows(
       modelSelectionTableProxy,
       which(modelSelection$Model == selection$selectedModel)
     )
   })
-  
+
   observe({
     selectedRow <- input$modelSelectionTable_rows_selected
     if (!is.null(selectedRow))
@@ -50,7 +50,7 @@ function(input, output, session) {
       selection$selectedModel <- selectedModel
     }
   })
-  
+
   output$restrictedModelSelectionTable <- DT::renderDataTable(
     datatable(
       restrictedModelSelection,
@@ -67,16 +67,16 @@ function(input, output, session) {
     ),
     server = TRUE
   )
-  
+
   restrictedModelSelectionTableProxy <- dataTableProxy('restrictedModelSelectionTable')
-  
+
   observeEvent(selection$selectedModel, {
     selectRows(
       restrictedModelSelectionTableProxy,
       which(restrictedModelSelection$Model == selection$selectedModel)
     )
   })
-  
+
   observe({
     selectedRow <- input$restrictedModelSelectionTable_rows_selected
     if (!is.null(selectedRow))
@@ -89,7 +89,7 @@ function(input, output, session) {
       selection$selectedModel <- selectedModel
     }
   })
-  
+
   output$modelLabel <- renderUI({
     HTML(paste("<b>Model:</b>", selection$selectedModel))
   })
@@ -665,8 +665,8 @@ function(input, output, session) {
     geneDetails() %>%
       filter(CopyNumberState == 1) %>%
       select(Gene, `Name [Aliases]`)
-  }) 
-  
+  })
+
   output$geneCopyNumberStateSelectionTable <- DT::renderDataTable(
     datatable(
       geneCopyNumberStateSelectionTableData(),
@@ -755,7 +755,7 @@ function(input, output, session) {
     geneDetails() %>%
       filter(CopyNumberGainSensitivity == 1) %>%
       select(Gene, `Name [Aliases]`)
-  }) 
+  })
 
   output$geneCopyNumberGainSensitivitySelectionTable <- DT::renderDataTable(
     datatable(
@@ -876,7 +876,7 @@ function(input, output, session) {
     geneDetails() %>%
       filter(CopyNumberLossSensitivity == 1) %>%
       select(Gene, `Name [Aliases]`)
-  }) 
+  })
 
   output$geneCopyNumberLossSensitivitySelectionTable <- DT::renderDataTable(
     datatable(
@@ -997,7 +997,7 @@ function(input, output, session) {
     geneDetails() %>%
       filter(Mutation == 1) %>%
       select(Gene, `Name [Aliases]`)
-  }) 
+  })
 
   output$geneMutationSelectionTable <- DT::renderDataTable(
     datatable(
