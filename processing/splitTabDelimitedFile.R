@@ -1,5 +1,5 @@
-# Script for splitting a tab-delimited file into chunks each with a given number
-# of lines where the header line is retained in each
+# R script for splitting a tab-delimited file into chunks each with a given
+# number of lines where the header line is retained in each
 
 # command line arguments
 args <- commandArgs(trailing=TRUE)
