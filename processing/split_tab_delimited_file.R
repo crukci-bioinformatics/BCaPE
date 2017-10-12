@@ -5,7 +5,7 @@
 args <- commandArgs(trailing=TRUE)
 
 if (length(args) != 4)
-  stop("Usage: splitTabDelimitedFile.R file prefix suffix lines")
+  stop("Usage: split_tab_delimited_file.R file prefix suffix lines")
 
 filename <- args[1]
 prefix <- args[2]
