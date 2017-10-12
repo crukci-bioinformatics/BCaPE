@@ -4,12 +4,13 @@
 # command line arguments
 args <- commandArgs(trailing=TRUE)
 
-if (length(args) != 3)
-  stop("Usage: copy_number_sensitivity.R drug_sensitivity_file copy_number_data_file output_file")
+if (length(args) != 4)
+  stop("Usage: copy_number_sensitivity.R drug_sensitivity_file copy_number_data_file gain_sensitivity_output_file loss_sensitivity_output_file")
 
 drugSensitivityFilename <- args[1]
 copyNumberFilename <- args[2]
-outputFilename <- args[3]
+gainSensitivityOutputFilename <- args[3]
+lossSensitivityOutputFilename <- args[4]
 
 
 source("functions.R")
@@ -143,6 +144,7 @@ copyNumberLossSensitivity$fdr <- adjusted.p.values[(nrow(copyNumberGainSensitivi
 
 
 # write results
-write_tsv(copyNumberGainSensitivity, outputFilename)
+write_tsv(copyNumberGainSensitivity, gainSensitivityOutputFilename)
+write_tsv(copyNumberLossSensitivity, lossSensitivityOutputFilename)
 
 
