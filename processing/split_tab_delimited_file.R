@@ -18,8 +18,8 @@ i <- 0
 
 writeFile <- function(data, pos)
 {
-	i <<- i + 1
-	write_tsv(data, paste(prefix, i, suffix, sep = "."))
+  i <<- i + 1
+  write_tsv(data, paste(prefix, i, suffix, sep = "."))
 }
 
 read_tsv_chunked(filename, SideEffectChunkCallback$new(writeFile), chunk_size = lines)

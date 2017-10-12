@@ -24,7 +24,7 @@ mutations <- readTabDelimitedFile(mutationsFilename, "Symbol")
 
 mutations <- mutations %>%
   gather(key = Model, value = Mutation, -Symbol) %>%
-	transmute(Gene = Symbol, Model, Mutated = Mutation != "NO")
+  transmute(Gene = Symbol, Model, Mutated = Mutation != "NO")
 
 
 # mutation sensitivity analysis
@@ -42,7 +42,7 @@ mutationSensitivity <- data_frame(
 
 drugs <- drugSensitivity %>%
   select(Drug) %>%
-	arrange(Drug) %>%
+  arrange(Drug) %>%
   unique %>%
   unlist(use.names = FALSE)
 
@@ -51,8 +51,8 @@ genes <- mutations %>%
   count(Mutated) %>%
   summarize(n = min(n)) %>%
   filter(n > 1) %>%
-	select(Gene) %>%
-	arrange(Gene) %>%
+  select(Gene) %>%
+  arrange(Gene) %>%
   unique %>%
   unlist(use.names = FALSE)
 
