@@ -1,12 +1,26 @@
+# R script for performing sensitivity analysis on gene methylation data
+# in relation to drug responsiveness in PDTX models
+
+# command line arguments
+args <- commandArgs(trailing=TRUE)
+
+if (length(args) != 3)
+  stop("Usage: methylation_sensitivity.R drug_sensitivity_file methylation_data_file output_file")
+
+drugSensitivityFilename <- args[1]
+methylationFilename <- args[2]
+outputFilename <- args[3]
+
+
 source("functions.R")
 
 
 # drug sensitivity data
-drugSensitivity <- readTabDelimitedFile("DrugResponsesAUCModels.txt", c("Model", "Drug", "AUC"), removeOtherColumns = TRUE)
+drugSensitivity <- readTabDelimitedFile(drugSensitivityFilename, c("Model", "Drug", "AUC"), removeOtherColumns = TRUE)
 
 
 # methylation data
-methylation <- readTabDelimitedFile("PromoterMethylationModels.txt", "Gene")
+methylation <- readTabDelimitedFile(methylationFilename, "Gene")
 
 methylation <- methylation %>%
   gather(key = Model, value = Methylation, -Gene)
@@ -80,6 +94,6 @@ methylationSensitivity$fdr <- p.adjust(methylationSensitivity$p.value, method = 
 
 
 # write results
-write_tsv(methylationSensitivity, "MethylationSensitivity.txt")
+write_tsv(methylationSensitivity, outputFilename)
 
 

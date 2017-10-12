@@ -1,12 +1,26 @@
+# R script for performing sensitivity analysis on gene copy number data
+# in relation to drug responsiveness in PDTX models
+
+# command line arguments
+args <- commandArgs(trailing=TRUE)
+
+if (length(args) != 3)
+  stop("Usage: copy_number_sensitivity.R drug_sensitivity_file copy_number_data_file output_file")
+
+drugSensitivityFilename <- args[1]
+copyNumberFilename <- args[2]
+outputFilename <- args[3]
+
+
 source("functions.R")
 
 
 # drug sensitivity data
-drugSensitivity <- readTabDelimitedFile("DrugResponsesAUCModels.txt", c("Model", "Drug", "AUC"), removeOtherColumns = TRUE)
+drugSensitivity <- readTabDelimitedFile(drugSensitivityFilename, c("Model", "Drug", "AUC"), removeOtherColumns = TRUE)
 
 
 # copy number states
-copyNumberStates <- readTabDelimitedFile("CNAModels.txt", "Symbol")
+copyNumberStates <- readTabDelimitedFile(copyNumberFilename, "Symbol")
 
 copyNumberStates <- copyNumberStates %>%
   gather("Model", "State", -Symbol) %>%
@@ -129,6 +143,6 @@ copyNumberLossSensitivity$fdr <- adjusted.p.values[(nrow(copyNumberGainSensitivi
 
 
 # write results
-write_tsv(copyNumberGainSensitivity, "CopyNumberGainSensitivity.txt")
+write_tsv(copyNumberGainSensitivity, outputFilename)
 
 

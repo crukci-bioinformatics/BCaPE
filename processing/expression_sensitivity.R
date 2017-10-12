@@ -1,12 +1,26 @@
+# R script for performing sensitivity analysis on gene expression data
+# in relation to drug responsiveness in PDTX models
+
+# command line arguments
+args <- commandArgs(trailing=TRUE)
+
+if (length(args) != 3)
+  stop("Usage: expression_sensitivity.R drug_sensitivity_file expression_data_file output_file")
+
+drugSensitivityFilename <- args[1]
+expressionFilename <- args[2]
+outputFilename <- args[3]
+
+
 source("functions.R")
 
 
 # drug sensitivity data
-drugSensitivity <- readTabDelimitedFile("DrugResponsesAUCModels.txt", c("Model", "Drug", "AUC"), removeOtherColumns = TRUE)
+drugSensitivity <- readTabDelimitedFile(drugSensitivityFilename, c("Model", "Drug", "AUC"), removeOtherColumns = TRUE)
 
 
 # expression data
-expression <- readTabDelimitedFile("ExpressionModels.txt", "Gene")
+expression <- readTabDelimitedFile(expressionFilename, "Gene")
 
 expression <- expression %>%
   gather(key = Model, value = Expression, -Gene)
@@ -80,6 +94,6 @@ expressionSensitivity$fdr <- p.adjust(expressionSensitivity$p.value, method = "B
 
 
 # write results
-write_tsv(expressionSensitivity, "ExpressionSensitivity.txt")
+write_tsv(expressionSensitivity, outputFilename)
 
 
