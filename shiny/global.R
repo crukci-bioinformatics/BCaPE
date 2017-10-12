@@ -16,7 +16,6 @@ drugSensitivity <- collect(tbl(db, "drugSensitivity"))
 modelSelectionColumns <- c("Model", "iC10", "3-Gene", "PAM50")
 modelSelection <- modelClassifications %>%
   select(one_of(modelSelectionColumns))
-#mutate_each(funs(ifelse(is.na(.), "N/A", .)))
 restrictedModelSelection <- modelSelection %>%
   right_join(drugSensitivity %>% select(Model) %>% unique, by = "Model")
 
