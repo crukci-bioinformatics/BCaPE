@@ -1,12 +1,26 @@
+# R script for performing sensitivity analysis using mutations within genes
+# in relation to drug responsiveness in PDTX models
+
+# command line arguments
+args <- commandArgs(trailing=TRUE)
+
+if (length(args) != 3)
+  stop("Usage: mutation_sensitivity.R drug_sensitivity_file mutation_file output_file")
+
+drugSensitivityFilename <- args[1]
+mutationsFilename <- args[2]
+outputFilename <- args[3]
+
+
 source("functions.R")
 
 
 # drug sensitivity data
-drugSensitivity <- readTabDelimitedFile("DrugResponsesAUCModels.txt", c("Model", "Drug", "AUC"), removeOtherColumns = TRUE)
+drugSensitivity <- readTabDelimitedFile(drugSensitivityFilename, c("Model", "Drug", "AUC"), removeOtherColumns = TRUE)
 
 
 # mutation data
-mutations <- readTabDelimitedFile("SNVsModels.txt", "Symbol")
+mutations <- readTabDelimitedFile(mutationsFilename, "Symbol")
 
 mutations <- mutations %>%
   gather(key = Model, value = Mutation, -Symbol) %>%
@@ -86,6 +100,6 @@ mutationSensitivity$fdr <- p.adjust(mutationSensitivity$p.value, method = "BH")
 
 
 # write results
-write_tsv(mutationSensitivity, "MutationSensitivity.txt")
+write_tsv(mutationSensitivity, outputFilename)
 
 
