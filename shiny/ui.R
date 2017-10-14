@@ -71,7 +71,12 @@ fluidPage(
                 tabPanel(
                   "Details",
                   tags$div(style="line-height:50%;", br()),
-                  helpText("Select a model in the search panel to view the AUC dot plot. Drag within plot to zoom. Click on a point to navigate to the drug view.")
+                  helpText(
+                    "Select a model in the search panel to view the",
+                    actionLink("navigateToBasicConcepts1", "AUC"),
+                    "dot plot. Drag within plot to zoom.",
+                    "Click on a point to navigate to the drug view."
+                  )
                 ),
                 tabPanel(
                   "Data",
@@ -106,7 +111,12 @@ fluidPage(
                 tabPanel(
                   "Details",
                   tags$div(style="line-height:50%;", br()),
-                  helpText("Select a drug in the search panel to view the AUC dot plot. Drag within plot to zoom. Click on a point to navigate to the model view.")
+                  helpText(
+                    "Select a drug in the search panel to view the",
+                    actionLink("navigateToBasicConcepts2", "AUC"),
+                    "dot plot. Drag within plot to zoom.",
+                    "Click on a point to navigate to the model view."
+                  )
                 ),
                 tabPanel(
                   "Data",
@@ -122,11 +132,30 @@ fluidPage(
                 tabPanel(
                   "Details",
                   tags$div(style="line-height:50%;", br()),
-                  helpText("The plot shows, for each gene, in the y axis the adjusted p-value in -log10 scale of a t-test comparing the AUC in models with gains vs models with no gains in that gene. Values larger than 1 are considered statistically significant."),
-                  helpText("The x axis shows the negative value of the t-statistic that measures the difference in AUC means for those two groups of models. Positive values suggest sensitivity to the drug in the models with the CNA and negative values resistance."),
-                  helpText("Filtered genes are those with a mean AUC that is considered sensitive for the models with the alteration and a mean AUC resistant for the models without the alteration (or the other way around; threshold for sensitivity is 0.2)."),
+                  helpText(
+                    "The plot shows, for each gene, in the y axis the adjusted p-value in -log10 scale",
+                    "of a t-test comparing the",
+                    actionLink("navigateToBasicConcepts3", "AUC"),
+                    "in models with gains vs models with no gains in that gene.",
+                    "Values larger than 1 are considered statistically significant."
+                  ),
+                  helpText(
+                    "The x axis shows the negative value of the t-statistic that measures the difference in",
+                    "AUC means for those two groups of models.",
+                    "Positive values suggest sensitivity to the drug in the models with the CNA",
+                    "and negative values resistance."
+                  ),
+                  helpText(
+                    "Filtered genes are those with a mean AUC that is considered sensitive for the models",
+                    "with the alteration and a mean AUC resistant for the models without the alteration",
+                    "(or the other way around; threshold for sensitivity is 0.2)."
+                  ),
                   helpText("An upper limit of 1000 genes are shown; these include the most significant 500."),
-                  helpText("Select a drug in the search panel to view sensitivity results. Drag within plot to zoom. Click on a point to navigate to the gene view.")
+                  helpText(
+                    "Select a drug in the search panel to view sensitivity results.",
+                    "Drag within plot to zoom.",
+                    "Click on a point to navigate to the gene view."
+                  )
                 ),
                 tabPanel(
                   "Data",
@@ -142,11 +171,30 @@ fluidPage(
                 tabPanel(
                   "Details",
                   tags$div(style="line-height:50%;", br()),
-                  helpText("The plot shows, for each gene, in the y axis the adjusted p-value in -log10 scale of a t-test comparing the AUC in models with losses vs models with no losses in that gene. Values larger than 1 are considered statistically significant."),
-                  helpText("The x axis shows the negative value of the t-statistic that measures the difference in AUC means for those two groups of models. Positive values suggest sensitivity to the drug in the models with the CNA and negative values resistance."),
-                  helpText("Filtered genes are those with a mean AUC that is considered sensitive for the models with the alteration and a mean AUC resistant for the models without the alteration (or the other way around; threshold for sensitivity is 0.2)."),
+                  helpText(
+                    "The plot shows, for each gene, in the y axis the adjusted p-value in -log10 scale",
+                    "of a t-test comparing the",
+                    actionLink("navigateToBasicConcepts4", "AUC"),
+                    "in models with losses vs models with no losses in that gene.",
+                    "Values larger than 1 are considered statistically significant."
+                  ),
+                  helpText(
+                    "The x axis shows the negative value of the t-statistic that measures the difference in",
+                    "AUC means for those two groups of models.",
+                    "Positive values suggest sensitivity to the drug in the models with the CNA",
+                    "and negative values resistance."
+                  ),
+                  helpText(
+                    "Filtered genes are those with a mean AUC that is considered sensitive for the models",
+                    "with the alteration and a mean AUC resistant for the models without the alteration",
+                    "(or the other way around; threshold for sensitivity is 0.2)."
+                  ),
                   helpText("An upper limit of 1000 genes are shown; these include the most significant 500."),
-                  helpText("Select a drug in the search panel to view sensitivity results. Drag within plot to zoom. Click on a point to navigate to the gene view.")
+                  helpText(
+                    "Select a drug in the search panel to view sensitivity results.",
+                    "Drag within plot to zoom.",
+                    "Click on a point to navigate to the gene view."
+                  )
                 ),
                 tabPanel(
                   "Data",
@@ -162,11 +210,30 @@ fluidPage(
                 tabPanel(
                   "Details",
                   tags$div(style="line-height:50%;", br()),
-                  helpText("The plot shows, for each gene, in the y axis the adjusted p-value in -log10 scale of a t-test comparing the AUC in models with a mutation vs models without it in that gene. Values larger than 1 are considered statistically significant."),
-                  helpText("The x axis shows the negative value of the t-statistic that measures the difference in AUC means for those two groups of models. Positive values suggest sensitivity to the drug in the models with the mutation and negative values resistance."),
-                  helpText("Filtered genes are those with a mean AUC that is considered sensitive for the models with the alteration and a mean AUC resistant for the models without the alteration (or the other way around; threshold for sensitivity is 0.2)."),
+                  helpText(
+                    "The plot shows, for each gene, in the y axis the adjusted p-value in -log10 scale",
+                    "of a t-test comparing the",
+                    actionLink("navigateToBasicConcepts5", "AUC"),
+                    "in models with a mutation vs models without one in that gene.",
+                    "Values larger than 1 are considered statistically significant."
+                  ),
+                  helpText(
+                    "The x axis shows the negative value of the t-statistic that measures the difference in",
+                    "AUC means for those two groups of models.",
+                    "Positive values suggest sensitivity to the drug in the models with the mutation",
+                    "and negative values resistance."
+                  ),
+                  helpText(
+                    "Filtered genes are those with a mean AUC that is considered sensitive for the models",
+                    "with the alteration and a mean AUC resistant for the models without the alteration",
+                    "(or the other way around; threshold for sensitivity is 0.2)."
+                  ),
                   helpText("An upper limit of 1000 genes are shown; these include the most significant 500."),
-                  helpText("Select a drug in the search panel to view sensitivity results. Drag within plot to zoom. Click on a point to navigate to the gene view.")
+                  helpText(
+                    "Select a drug in the search panel to view sensitivity results.",
+                    "Drag within plot to zoom.",
+                    "Click on a point to navigate to the gene view."
+                  )
                 ),
                 tabPanel(
                   "Data",
@@ -182,10 +249,24 @@ fluidPage(
                 tabPanel(
                   "Details",
                   tags$div(style="line-height:50%;", br()),
-                  helpText("The plot shows, for each gene, in the y axis the adjusted p-value in -log10 scale of a linear model comparing the AUC vs the log-intensity expression in that gene for all models. Values larger than 1 are considered statistically significant."),
-                  helpText("The x axis shows the slope measuring the change in AUC per expression unit. Positive values suggest sensitivity to the drug in the models with over expression in the gene and negative values resistance."),
+                  helpText(
+                    "The plot shows, for each gene, in the y axis the adjusted p-value in -log10 scale",
+                    "of a linear model comparing the",
+                    actionLink("navigateToBasicConcepts6", "AUC"),
+                    "vs the log-intensity expression in that gene for all models.",
+                    "Values larger than 1 are considered statistically significant."
+                  ),
+                  helpText(
+                    "The x axis shows the slope measuring the change in AUC per expression unit.",
+                    "Positive values suggest sensitivity to the drug in the models with over expression",
+                    "in the gene and negative values resistance."
+                  ),
                   helpText("An upper limit of 1000 genes are shown; these include the most significant 500."),
-                  helpText("Select a drug in the search panel to view sensitivity results. Drag within plot to zoom. Click on a point to navigate to the gene view.")
+                  helpText(
+                    "Select a drug in the search panel to view sensitivity results.",
+                    "Drag within plot to zoom.",
+                    "Click on a point to navigate to the gene view."
+                  )
                 ),
                 tabPanel(
                   "Data",
@@ -201,11 +282,28 @@ fluidPage(
                 tabPanel(
                   "Details",
                   tags$div(style="line-height:50%;", br()),
-                  helpText("The plot shows, for each gene, in the y axis the adjusted p-value in -log10 scale of a linear model comparing the AUC vs the promoter methylation in that gene for all models. Values larger than 1 are considered statistically significant."),
-                  helpText("The x axis shows the slope measuring the change in AUC per methylation percentage unit. Positive values suggest sensitivity to the drug in the models with greater methylation in the gene promoter and negative values resistance."),
-                  helpText("Filtered genes are those statistically significant (with an unadjusted p-value smaller than 0.05 and a range of methylation in all models larger than 25%."),
+                  helpText(
+                    "The plot shows, for each gene, in the y axis the adjusted p-value in -log10 scale",
+                    "of a linear model comparing the",
+                    actionLink("navigateToBasicConcepts7", "AUC"),
+                    "vs the promoter methylation in that gene for all models.",
+                    "Values larger than 1 are considered statistically significant."
+                  ),
+                  helpText(
+                    "The x axis shows the slope measuring the change in AUC per methylation percentage unit.",
+                    "Positive values suggest sensitivity to the drug in the models with greater methylation",
+                    "in the gene promoter and negative values resistance."
+                  ),
+                  helpText(
+                    "Filtered genes are those statistically significant (with an unadjusted p-value smaller",
+                    "than 0.05 and a range of methylation in all models larger than 25%."
+                  ),
                   helpText("An upper limit of 1000 genes are shown; these include the most significant 500."),
-                  helpText("Select a drug in the search panel to view sensitivity results. Drag within plot to zoom. Click on a point to navigate to the gene view.")
+                  helpText(
+                    "Select a drug in the search panel to view sensitivity results.",
+                    "Drag within plot to zoom.",
+                    "Click on a point to navigate to the gene view."
+                  )
                 ),
                 tabPanel(
                   "Data",
@@ -296,10 +394,29 @@ fluidPage(
                     tabPanel(
                       "Details",
                       tags$div(style="line-height:50%;", br()),
-                      helpText("The plot shows, for a given gene, in the y axis the adjusted p-value in -log10 scale of a t-test comparing the AUC in models with gains vs models with no gains in that gene. Values larger than 1 are considered statistically significant."),
-                      helpText("The x axis shows the negative value of the t-statistic that measures the difference in AUC means for those two groups of models. Positive values suggest sensitivity to the drug in the models with the CNA and negative values resistance."),
-                      helpText("Filtered genes are those with a mean AUC that is considered sensitive for the models with the alteration and a mean AUC resistant for the models without the alteration (or the other way around; threshold for sensitivity is 0.2)."),
-                      helpText("Select a gene in the search panel to view sensitivity results. Drag within plot to zoom. Click on a point to navigate to the drug view.")
+                      helpText(
+                        "The plot shows, for each drug, in the y axis the adjusted p-value in -log10 scale",
+                        "of a t-test comparing the",
+                        actionLink("navigateToBasicConcepts8", "AUC"),
+                        "in models with gains vs models with no gains in the selected gene.",
+                        "Values larger than 1 are considered statistically significant."
+                      ),
+                      helpText(
+                        "The x axis shows the negative value of the t-statistic that measures the difference in",
+                        "AUC means for those two groups of models.",
+                        "Positive values suggest sensitivity to the drug in the models with the CNA",
+                        "and negative values resistance."
+                      ),
+                      helpText(
+                        "Filtered genes are those with a mean AUC that is considered sensitive for the models",
+                        "with the alteration and a mean AUC resistant for the models without the alteration",
+                        "(or the other way around; threshold for sensitivity is 0.2)."
+                      ),
+                      helpText(
+                        "Select a gene in the search panel to view sensitivity results.",
+                        "Drag within plot to zoom.",
+                        "Click on a point to navigate to the drug view."
+                      )
                     ),
                     tabPanel(
                       "Data",
@@ -315,10 +432,29 @@ fluidPage(
                     tabPanel(
                       "Details",
                       tags$div(style="line-height:50%;", br()),
-                      helpText("The plot shows, for a given gene, in the y axis the adjusted p-value in -log10 scale of a t-test comparing the AUC in models with losses vs models with no losses in that gene. Values larger than 1 are considered statistically significant."),
-                      helpText("The x axis shows the negative value of the t-statistic that measures the difference in AUC means for those two groups of models. Positive values suggest sensitivity to the drug in the models with the CNA and negative values resistance."),
-                      helpText("Filtered genes are those with a mean AUC that is considered sensitive for the models with the alteration and a mean AUC resistant for the models without the alteration (or the other way around; threshold for sensitivity is 0.2)."),
-                      helpText("Select a gene in the search panel to view sensitivity results. Drag within plot to zoom. Click on a point to navigate to the drug view.")
+                      helpText(
+                        "The plot shows, for each drug, in the y axis the adjusted p-value in -log10 scale",
+                        "of a t-test comparing the",
+                        actionLink("navigateToBasicConcepts9", "AUC"),
+                        "in models with losses vs models with no losses in the selected gene.",
+                        "Values larger than 1 are considered statistically significant."
+                      ),
+                      helpText(
+                        "The x axis shows the negative value of the t-statistic that measures the difference in",
+                        "AUC means for those two groups of models.",
+                        "Positive values suggest sensitivity to the drug in the models with the CNA",
+                        "and negative values resistance."
+                      ),
+                      helpText(
+                        "Filtered genes are those with a mean AUC that is considered sensitive for the models",
+                        "with the alteration and a mean AUC resistant for the models without the alteration",
+                        "(or the other way around; threshold for sensitivity is 0.2)."
+                      ),
+                      helpText(
+                        "Select a gene in the search panel to view sensitivity results.",
+                        "Drag within plot to zoom.",
+                        "Click on a point to navigate to the drug view."
+                      )
                     ),
                     tabPanel(
                       "Data",
@@ -341,10 +477,29 @@ fluidPage(
                     tabPanel(
                       "Details",
                       tags$div(style="line-height:50%;", br()),
-                      helpText("The plot shows, for each gene, in the y axis the adjusted p-value in -log10 scale of a t-test comparing the AUC in models with a mutation  vs models without it in that gene. Values larger than 1 are considered statistically significant."),
-                      helpText("The x axis shows the negative value of the t-statistic that measures the difference in AUC means for those two groups of models. Positive values suggest sensitivity to the drug in the models with the mutation and negative values resistance."),
-                      helpText("Filtered genes are those with a mean AUC that is considered sensitive for the models with the alteration and a mean AUC resistant for the models without the alteration (or the other way around; threshold for sensitivity is 0.2)."),
-                      helpText("Select a gene in the search panel to view sensitivity results. Drag within plot to zoom. Click on a point to navigate to the drug view.")
+                      helpText(
+                        "The plot shows, for each drug, in the y axis the adjusted p-value in -log10 scale",
+                        "of a t-test comparing the",
+                        actionLink("navigateToBasicConcepts10", "AUC"),
+                        "in models with a mutation vs models without one in the selected gene.",
+                        "Values larger than 1 are considered statistically significant."
+                      ),
+                      helpText(
+                        "The x axis shows the negative value of the t-statistic that measures the difference in",
+                        "AUC means for those two groups of models.",
+                        "Positive values suggest sensitivity to the drug in the models with the mutation",
+                        "and negative values resistance."
+                      ),
+                      helpText(
+                        "Filtered genes are those with a mean AUC that is considered sensitive for the models",
+                        "with the alteration and a mean AUC resistant for the models without the alteration",
+                        "(or the other way around; threshold for sensitivity is 0.2)."
+                      ),
+                      helpText(
+                        "Select a gene in the search panel to view sensitivity results.",
+                        "Drag within plot to zoom.",
+                        "Click on a point to navigate to the drug view."
+                      )
                     ),
                     tabPanel(
                       "Data",
@@ -372,9 +527,23 @@ fluidPage(
                     tabPanel(
                       "Details",
                       tags$div(style="line-height:50%;", br()),
-                      helpText("The plot shows, for each gene, in the y axis the adjusted p-value in -log10 scale of a linear model comparing the AUC vs the log-intensity expression in that gene for all models. Values larger than 1 are considered statistically significant."),
-                      helpText("The x axis shows the slope measuring the change in AUC per expression unit. Positive values suggest sensitivity to the drug in the models with over expression in the gene and negative values resistance."),
-                      helpText("Select a gene in the search panel to view sensitivity results. Drag within plot to zoom. Click on a point to navigate to the drug view.")
+                      helpText(
+                        "The plot shows, for each drug, in the y axis the adjusted p-value in -log10 scale",
+                        "of a linear model comparing the",
+                        actionLink("navigateToBasicConcepts11", "AUC"),
+                        "vs the log-intensity expression in the selected gene for all models.",
+                        "Values larger than 1 are considered statistically significant."
+                      ),
+                      helpText(
+                        "The x axis shows the slope measuring the change in AUC per expression unit.",
+                        "Positive values suggest sensitivity to the drug in the models with over expression",
+                        "in the gene and negative values resistance."
+                      ),
+                      helpText(
+                        "Select a gene in the search panel to view sensitivity results.",
+                        "Drag within plot to zoom.",
+                        "Click on a point to navigate to the drug view."
+                      )
                     ),
                     tabPanel(
                       "Data",
@@ -404,10 +573,27 @@ fluidPage(
                     tabPanel(
                       "Details",
                       tags$div(style="line-height:50%;", br()),
-                      helpText("The plot shows, for each gene, in the y axis the adjusted p-value in -log10 scale of a linear model comparing the AUC vs the promoter methylation in that gene for all models.Values larger than 1 are considered statistically significant."),
-                      helpText("The x axis shows the slope measuring the change in AUC per methylation percentage unit. Positive values suggest sensitivity to the drug in the models with greater methylation in the gene promoter and negative values resistance."),
-                      helpText("Filtered genes are those statistically significant (with an unadjusted p-value smaller than 0.05 and a range of methylation in all models larger than 25%."),
-                      helpText("Select a gene in the search panel to view sensitivity results. Drag within plot to zoom. Click on a point to navigate to the drug view.")
+                      helpText(
+                        "The plot shows, for each drug, in the y axis the adjusted p-value in -log10 scale",
+                        "of a linear model comparing the",
+                        actionLink("navigateToBasicConcepts12", "AUC"),
+                        "vs the promoter methylation in the selected gene for all models.",
+                        "Values larger than 1 are considered statistically significant."
+                      ),
+                      helpText(
+                        "The x axis shows the slope measuring the change in AUC per methylation percentage unit.",
+                        "Positive values suggest sensitivity to the drug in the models with greater methylation",
+                        "in the gene promoter and negative values resistance."
+                      ),
+                      helpText(
+                        "Filtered genes are those statistically significant (with an unadjusted p-value smaller",
+                        "than 0.05 and a range of methylation in all models larger than 25%."
+                      ),
+                      helpText(
+                        "Select a gene in the search panel to view sensitivity results.",
+                        "Drag within plot to zoom.",
+                        "Click on a point to navigate to the drug view."
+                      )
                     ),
                     tabPanel(
                       "Data",
@@ -440,6 +626,12 @@ fluidPage(
         "The complete dataset can be downloaded",
         tags$a(href = "https://figshare.com/articles/Bruna_et_al_A_biobank_of_breast_cancer_explants_with_preserved_intra-tumor_heterogeneity_to_screen_anticancer_compounds_Cell_2016/2069274", target = "_blank", "here.")
       ),
+      tags$div(style="line-height:100%;", br()),
+      helpText(
+        "The portal was developed using the R Shiny web application framework;",
+        "the source code is available",
+        tags$a(href = "https://github.com/crukci-bioinformatics/BCaPE", target = "_blank", "here.")
+      ),
       tags$div(style="line-height:400%;", br())
     ),
 
@@ -450,7 +642,6 @@ fluidPage(
         tabPanel(
           "Basic concepts",
           tags$div(style="line-height:50%;", br()),
-          tags$a(name = "AUC"),
           tags$h5("Area under the curve (AUC)"),
           helpText(
             "A measure of drug sensitivity based on the area under the dose-response curve.",
@@ -473,7 +664,7 @@ fluidPage(
             "The left panel shows a list of all the models available in the encyclopaedia with their molecular classification (Integrative Cluster, 3-gene and intrinsic subtype).",
             "When a model is clicked, the right panel shows sensitivity to a selection of drugs tested.",
             "Sorted by more resistant to more sensitive, each dot correspond to one drug tested on the selected model and the x-axis shows the area under the curve, ",
-            actionLink("navigateToBasicConcepts1", "AUC,"), "a measure of drug sensitivity.",
+            actionLink("navigateToBasicConcepts13", "AUC,"), "a measure of drug sensitivity.",
             "Hovering the cursor over any of the dots will display the drug tested."
           ),
           helpText("Because we still don’t have drug sensitivity data for all our models you can tick the option 'Restrict to models with drug sensitivity data' to list only the ones that have drug response data."),
@@ -492,12 +683,12 @@ fluidPage(
           ),
           helpText(
             "Sorted by more resistant to more sensitive, each dot correspond to one model tested with the selected drug and the x-axis shows the area under the curve,",
-            actionLink("navigateToBasicConcepts2", "AUC,"), "a measure of drug sensitivity.",
+            actionLink("navigateToBasicConcepts14", "AUC,"), "a measure of drug sensitivity.",
             "Hovering the cursor over any of the dots will show the model tested; selecting the Data tab at the bottom will show the values of all models."
           ),
           tags$h5("Copy number gains"),
           helpText(
-            "This panel shows a", actionLink("navigateToBasicConcepts3", "volcano plot,"),
+            "This panel shows a", actionLink("navigateToBasicConcepts15", "volcano plot,"),
             "that illustrates the effect of having a copy number gain in the sensitivity to the selected drug."
           ),
           helpText(
@@ -509,7 +700,7 @@ fluidPage(
           ),
           tags$h5("Copy number losses"),
           helpText(
-            "This is similar to the copy number gains panel but shows a", actionLink("navigateToBasicConcepts4", "volcano plot,"),
+            "This is similar to the copy number gains panel but shows a volcano plot",
             "that illustrates the effect of having a copy number gain in the sensitivity to the selected drug."
           ),
           helpText(
@@ -520,8 +711,8 @@ fluidPage(
           ),
           tags$h5("Mutations"),
           helpText(
-            "This panel shows a", actionLink("navigateToBasicConcepts5", "volcano plot,"),
-            "that illustrates the effect of having a mutation in the sensitivity to the selected drug."
+            "This panel shows a volcano plot that illustrates the effect of having a mutation in the",
+            "sensitivity to the selected drug."
           ),
           helpText(
             "Each dot represents a gene; hovering the cursor over a dot will display details for that gene.",
@@ -532,8 +723,8 @@ fluidPage(
           ),
           tags$h5("Expression"),
           helpText(
-            "This panel shows a", actionLink("navigateToBasicConcepts6", "volcano plot,"),
-            "that illustrates the effect of over expression in the sensitivity to the selected drug."
+            "This panel shows a volcano plot that illustrates the effect of over expression in the",
+            "sensitivity to the selected drug."
           ),
           helpText(
             "Each dot represents a gene; hovering the cursor over a dot will display details for that gene.",
@@ -545,8 +736,8 @@ fluidPage(
           ),
           tags$h5("Methylation"),
           helpText(
-            "This panel shows a", actionLink("navigateToBasicConcepts7", "volcano plot,"),
-            "that illustrates the effect of promoter methylation in the sensitivity to the selected drug."
+            "This panel shows a volcano plot that illustrates the effect of promoter methylation in the",
+            "sensitivity to the selected drug."
           ),
           helpText(
             "Each dot represents a gene; hovering the cursor over a dot will display details for that gene.",
@@ -568,7 +759,7 @@ fluidPage(
           ),
           tags$h5("Sensitivity analysis"),
           helpText(
-            "This panel shows a", actionLink("navigateToBasicConcepts8", "volcano plot,"),
+            "This panel shows a", actionLink("navigateToBasicConcepts16", "volcano plot,"),
             "that illustrates the effect of the given alteration",
             "(copy number gain or loss, mutation, over expression or promoter methylation)",
             "in the sensitivity to the drugs tested."
@@ -605,7 +796,6 @@ fluidPage(
     tags$script(type = "text/javascript", "var d = new Date(); document.write(d.getFullYear())"),
     "University of Cambridge",
     tags$div(style = "float:right",
-      # tags$a(href = "mailto:bcape@cruk.cam.ac.uk", "Contact us"),
       actionLink("navigateToContactUs", "Contact us"),
       "|",
       tags$a(href = "http://www.cruk.cam.ac.uk/utilities/cri-tandc", target = "_blank", "Terms and Conditions")
