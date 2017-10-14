@@ -18,7 +18,11 @@ RUN mkdir /srv/shiny-server/bcape/www
 RUN mkdir /srv/shiny-server/bcape/data
 RUN mkdir /srv/shiny-server/bcape/analytics
 
+RUN chmod -R ugo+rx /srv/shiny-server/bcape
+
 COPY *.R /srv/shiny-server/bcape/
 COPY www/* /srv/shiny-server/bcape/www/
 COPY analytics/*.js /srv/shiny-server/bcape/analytics/
+
+RUN chmod -R ugo+r /srv/shiny-server/bcape
 
