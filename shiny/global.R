@@ -6,7 +6,7 @@ library(DT)
 
 source("plots.R")
 
-db <- src_sqlite("data/bcape.sqlite")
+db <- src_sqlite("bcape.sqlite")
 
 modelClassifications <- collect(tbl(db, "modelClassifications"))
 
