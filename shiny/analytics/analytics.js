@@ -1,1 +1,0 @@
-/* Placeholder for JavaScript function to send events to Google Analytics */
