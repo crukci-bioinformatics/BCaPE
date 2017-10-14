@@ -1045,7 +1045,8 @@ function(input, output, session) {
     mutations %>%
       filter(Gene == gene) %>%
       collect %>%
-      arrange(desc(Mutation))
+      arrange(desc(Mutated)) %>%
+      mutate(Mutated = ifelse(Mutated, "Yes", "No"))
   })
 
   output$geneMutationsTable <- DT::renderDataTable(
@@ -1657,5 +1658,44 @@ function(input, output, session) {
     updateTabsetPanel(session, "helpTabsetPanel", selected = "Basic concepts")
   })
 
+  observeEvent(input$navigateToBasicConcepts9, {
+    updateTabsetPanel(session, "mainTabsetPanel", selected = "Help")
+    updateTabsetPanel(session, "helpTabsetPanel", selected = "Basic concepts")
+  })
+
+  observeEvent(input$navigateToBasicConcepts10, {
+    updateTabsetPanel(session, "mainTabsetPanel", selected = "Help")
+    updateTabsetPanel(session, "helpTabsetPanel", selected = "Basic concepts")
+  })
+
+  observeEvent(input$navigateToBasicConcepts11, {
+    updateTabsetPanel(session, "mainTabsetPanel", selected = "Help")
+    updateTabsetPanel(session, "helpTabsetPanel", selected = "Basic concepts")
+  })
+
+  observeEvent(input$navigateToBasicConcepts12, {
+    updateTabsetPanel(session, "mainTabsetPanel", selected = "Help")
+    updateTabsetPanel(session, "helpTabsetPanel", selected = "Basic concepts")
+  })
+
+  observeEvent(input$navigateToBasicConcepts13, {
+    updateTabsetPanel(session, "mainTabsetPanel", selected = "Help")
+    updateTabsetPanel(session, "helpTabsetPanel", selected = "Basic concepts")
+  })
+
+  observeEvent(input$navigateToBasicConcepts14, {
+    updateTabsetPanel(session, "mainTabsetPanel", selected = "Help")
+    updateTabsetPanel(session, "helpTabsetPanel", selected = "Basic concepts")
+  })
+
+  observeEvent(input$navigateToBasicConcepts15, {
+    updateTabsetPanel(session, "mainTabsetPanel", selected = "Help")
+    updateTabsetPanel(session, "helpTabsetPanel", selected = "Basic concepts")
+  })
+
+  observeEvent(input$navigateToBasicConcepts16, {
+    updateTabsetPanel(session, "mainTabsetPanel", selected = "Help")
+    updateTabsetPanel(session, "helpTabsetPanel", selected = "Basic concepts")
+  })
 }
 
