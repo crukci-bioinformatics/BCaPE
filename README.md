@@ -11,5 +11,6 @@ Instructions for obtaining the mutation, copy number, expression and methylation
 data, running the sensitivity analysis and creating the database that is used by
 the BCaPE web application can be found [here](processing/README.md).
 
-R code for the Shiny application used to create the [BCaPE website](http://caldaslab.cruk.cam.ac.uk/bcape/) is available in the [shiny](shiny)
-folder. Instructions for deploying the Shiny application can be found [here](shiny/README.md).
+R code for the Shiny application used to create the BCaPE website is available
+in the [shiny](shiny) folder. Instructions for deploying the Shiny application can be
+found [here](shiny/README.md).
