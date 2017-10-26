@@ -7,22 +7,20 @@ The data for the Shiny app are contained in an [SQLite](https://www.sqlite.org)
 database file named `bcape.sqlite`.
 The SQLite database within this folder is empty but contains the schema definitions for all tables and indexes. See the [processing](../processing) folder for details on how to populate the database.
 
-<div style="line-height: 25%;"><br></div>
-
-#### R package dependencies
+### R package dependencies
 
 The application depends on the following R packages which can be installed
 using the R `install.packages` function.
 
 - [tidyr](http://tidyr.tidyverse.org)
 - [dplyr](http://dplyr.tidyverse.org)
+- [dbplyr](https://cran.r-project.org/web/packages/dbplyr/index.html)
+- [RSQLite](https://cran.r-project.org/web/packages/RSQLite/index.html)
 - [shiny](https://cran.r-project.org/web/packages/shiny/index.html)
 - [DT](https://rstudio.github.io/DT)
 - [highcharter](http://jkunst.com/highcharter)
 
-<div style="line-height: 25%;"><br></div>
-
-#### Running the application standalone
+### Running the application standalone
 
 To run the Shiny app standalone:
 
@@ -32,9 +30,7 @@ Rscript start_shiny_app.R
 
 The application should be launched in a new browser window.
 
-<div style="line-height: 25%;"><br></div>
-
-#### Deployment within Shiny Server
+### Deployment within Shiny Server
 
 Alternatively, to run within [Shiny Server](https://www.rstudio.com/products/shiny/shiny-server),
 copy the R code (files ending with '.R'), the database (`bcape.sqlite`), the analytics JavaScript
@@ -44,9 +40,7 @@ be available at http://host:port/bcape, where `host` and `port` need to be subst
 of the host on which Shiny Server is running and the port number on which it is configured to listen
 (see `/etc/shiny-server/shiny-server.conf`).
 
-<div style="line-height: 25%;"><br></div>
-
-#### Deployment using Docker
+### Deployment using Docker
 
 This folder contains a Dockerfile used to build a [Docker](https://www.docker.com) image in
 which Shiny Server, R, the BCaPE web application and all its R package dependencies are installed.
@@ -81,9 +75,7 @@ configuration settings by mounting an external configuration file as
 By default Shiny Server listens on port 3838. This can be remapped to another
 port using Docker with the `-p` option.
 
-<div style="line-height: 25%;"><br></div>
-
-#### Deployment using Singularity
+### Deployment using Singularity
 
 The [BCaPE site](http://caldaslab.cruk.cam.ac.uk/bcape) is deployed using
 [Singularity](http://singularity.lbl.gov), which is another container system.
@@ -109,9 +101,7 @@ mkdir -p logs
 	${dir}/bcape.img
 ```
 
-<div style="line-height: 25%;"><br></div>
-
-#### Google analytics
+### Google analytics
 
 Usage of the application can be monitored using
 [Google Analytics](https://www.google.com/analytics).
@@ -158,4 +148,3 @@ Similarly with Singularity:
 	${dir}/bcape.img
 ```
 
-<div style="line-height: 150%;"><br></div>
