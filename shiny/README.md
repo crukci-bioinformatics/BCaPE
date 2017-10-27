@@ -104,10 +104,10 @@ The image can be run as follows:
 
 ```
 mkdir -p logs
-/usr/local/bin/singularity run \
+singularity run \
 	-B bcape.sqlite:/srv/shiny-server/bcape/bcape.sqlite \
 	-B logs:/var/log/shiny-server \
-	${dir}/bcape.img
+	bcape.img
 ```
 
 ### Google analytics
@@ -150,10 +150,10 @@ docker run -u shiny -d -p 3838:3838 \
 Similarly with Singularity:
 
 ```
-/usr/local/bin/singularity run \
+singularity run \
 	-B bcape.sqlite:/srv/shiny-server/bcape/bcape.sqlite \
-	-B ${dir}/analytics.js:/srv/shiny-server/bcape/analytics.js \
+	-B analytics.js:/srv/shiny-server/bcape/analytics.js \
 	-B logs:/var/log/shiny-server \
-	${dir}/bcape.img
+	bcape.img
 ```
 
