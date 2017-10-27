@@ -105,9 +105,9 @@ The image can be run as follows:
 ```
 mkdir -p logs
 singularity run \
-	-B bcape.sqlite:/srv/shiny-server/bcape/bcape.sqlite \
-	-B logs:/var/log/shiny-server \
-	bcape.img
+  -B bcape.sqlite:/srv/shiny-server/bcape/bcape.sqlite \
+  -B logs:/var/log/shiny-server \
+  bcape.img
 ```
 
 ### Google analytics
@@ -151,9 +151,9 @@ Similarly with Singularity:
 
 ```
 singularity run \
-	-B bcape.sqlite:/srv/shiny-server/bcape/bcape.sqlite \
-	-B analytics.js:/srv/shiny-server/bcape/analytics.js \
-	-B logs:/var/log/shiny-server \
-	bcape.img
+  -B bcape.sqlite:/srv/shiny-server/bcape/bcape.sqlite \
+  -B analytics.js:/srv/shiny-server/bcape/analytics.js \
+  -B logs:/var/log/shiny-server \
+  bcape.img
 ```
 
