@@ -1,11 +1,13 @@
 BCaPE Shiny app
 ===============
 
-Web application for the Breast Cancer PDTX Encyclopaedia built using the [R Shiny framework](https://www.rstudio.com/products/shiny).
+Web application for the Breast Cancer PDTX Encyclopaedia built using the
+[R Shiny framework](https://www.rstudio.com/products/shiny).
 
 The data for the Shiny app are contained in an [SQLite](https://www.sqlite.org)
-database file named `bcape.sqlite`.
-The SQLite database within this folder is empty but contains the schema definitions for all tables and indexes. See the [processing](../processing) folder for details on how to populate the database.
+database file named `bcape.sqlite`. The SQLite database within this folder is
+empty but contains the schema definitions for all tables and indexes. See the
+[processing](../processing) folder for details on how to populate the database.
 
 ### R package dependencies
 
@@ -45,6 +47,11 @@ of the host on which Shiny Server is running and the port number on which it is 
 This folder contains a Dockerfile used to build a [Docker](https://www.docker.com) image in
 which Shiny Server, R, the BCaPE web application and all its R package dependencies are installed.
 
+The Docker image is built on the
+[shiny-base](https://github.com/crukci-bioinformatics/shiny-base/blob/master/README.md)
+image which packages Shiny Server, R and the [tidyverse](https://www.tidyverse.org/)
+R packages.
+
 The Docker image is available on [Docker Hub](https://hub.docker.com/r/crukcibioinformatics/bcape)
 and can be retrieved as follows:
 
@@ -68,9 +75,12 @@ Note that this replaces the empty database contained within the Docker
 image with the `bcape.sqlite` file in the current directory on the host
 file system. Likewise, a log directory is created and bound into the
 container so that logging information is accessible outside the container.
+
 Similarly we could replace the Shiny Server configuration to change some
 configuration settings by mounting an external configuration file as
-`/etc/shiny-server/shiny-server.conf` within the container.
+`/etc/shiny-server/shiny-server.conf` within the container. See the
+[shiny-base](https://github.com/crukci-bioinformatics/shiny-base/blob/master/README.md)
+Docker image for more details on how to configure Shiny Server in this way.
 
 By default Shiny Server listens on port 3838. This can be remapped to another
 port using Docker with the `-p` option.
