@@ -555,7 +555,7 @@ fluidPage(
                 tabPanel(
                   "Expression Data",
                   tags$div(style="line-height:50%;", br()),
-                  helpText("Expression values are z-score expression intensities."),
+                  helpText("Expression values are normalized log2-transformed intensities."),
                   tags$div(style="line-height:50%;", br()),
                   DT::dataTableOutput("geneExpressionTable")
                 )
