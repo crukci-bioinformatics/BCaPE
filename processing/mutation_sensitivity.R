@@ -12,94 +12,88 @@ mutationsFilename <- args[2]
 outputFilename <- args[3]
 
 
-source("functions.R")
+library(tidyverse)
+library(furrr)
+library(tictoc)
+
+plan(multiprocess)
+
+availableCores()
 
 
 # drug sensitivity data
-drugSensitivity <- readTabDelimitedFile(drugSensitivityFilename, c("Model", "Drug", "AUC"), removeOtherColumns = TRUE)
+drugSensitivity <- read_tsv(drugSensitivityFilename) %>%
+  select(Model, Drug, AUC)
 
 
 # mutation data
-mutations <- readTabDelimitedFile(mutationsFilename, "Symbol")
+mutations <- read_tsv(mutationsFilename)
 
 mutations <- mutations %>%
-  gather(key = Model, value = Mutation, -Symbol) %>%
-  transmute(Gene = Symbol, Model, Mutated = Mutation != "NO")
+  gather(key = Model, value = Mutation, -Gene) %>%
+  transmute(Gene, Model, Mutated = Mutation != "NO")
 
 
-# mutation sensitivity analysis
+# sensitivity analysis
 
-mutationSensitivity <- data_frame(
-  Gene = character(),
-  Drug = character(),
-  t.statistic = double(),
-  p.value = double(),
-  mean.mutation = double(),
-  n.mutation = integer(),
-  mean.nomutation = double(),
-  n.nomutation = integer()
-)
+calculateSensitivity <- function(gene) {
 
-drugs <- drugSensitivity %>%
-  select(Drug) %>%
-  arrange(Drug) %>%
-  unique %>%
-  unlist(use.names = FALSE)
+  geneMutationSensitivity <- mutations %>%
+    filter(Gene == gene) %>%
+    inner_join(drugSensitivity, by = "Model")
 
-genes <- mutations %>%
-  group_by(Gene) %>%
-  count(Mutated) %>%
-  summarize(n = min(n)) %>%
-  filter(n > 1) %>%
-  select(Gene) %>%
-  arrange(Gene) %>%
-  unique %>%
-  unlist(use.names = FALSE)
+  calculateDrugSensitivity <- function(drug) {
 
-geneCount <- 0
-for (gene in genes)
-{
-  geneCount <- geneCount + 1
-  cat(geneCount, "/", length(genes), "\n", sep = "")
-
-  geneMutations <- mutations %>% filter(Gene == gene)
-
-  counts <- geneMutations %>% count(Mutated) %>% arrange(n)
-  if (nrow(counts) != 2 | counts %>% slice(1) %>% select(n) %>% as.integer < 2) next
-
-  geneMutationSensitivity <- inner_join(geneMutations, drugSensitivity, by = "Model")
-  if (nrow(geneMutationSensitivity) == 0) next
-
-  for (drug in drugs)
-  {
-    geneDrugMutationSensitivity <- geneMutationSensitivity %>% filter(Drug == drug)
-    if (nrow(geneDrugMutationSensitivity) == 0) next
-
-    counts <- geneDrugMutationSensitivity %>% count(Mutated) %>% arrange(n)
-    if (nrow(counts) != 2 || counts %>% slice(1) %>% select(n) %>% as.integer < 2) next
+    geneDrugMutationSensitivity <- filter(geneMutationSensitivity, Drug == drug)
 
     result <- try(t.test(AUC ~ Mutated, data = geneDrugMutationSensitivity))
 
-    if (class(result) != "try-error")
-    {
-      mutationSensitivity <- mutationSensitivity %>% bind_rows(data_frame(
-        Gene = gene,
-        Drug = drug,
-        t.statistic = result$statistic,
-        p.value = result$p.value,
-        mean.mutation = result$estimate["mean in group TRUE"],
-        n.mutation = counts %>% filter(Mutated) %>% select(n) %>% as.integer,
-        mean.nomutation = result$estimate["mean in group FALSE"],
-        n.nomutation = counts %>% filter(!Mutated) %>% select(n) %>% as.integer
-      ))
-    }
+    if (class(result) == "try-error")
+      stop("Error in t-test for gene ", gene, " and drug ", drug, "\n")
+
+    tibble(
+      Gene = gene,
+      Drug = drug,
+      t.statistic = result$statistic,
+      p.value = result$p.value,
+      mean.mutation = result$estimate["mean in group TRUE"],
+      n.mutation = geneDrugMutationSensitivity %>% filter(Mutated) %>% nrow(),
+      mean.nomutation = result$estimate["mean in group FALSE"],
+      n.nomutation = geneDrugMutationSensitivity %>% filter(!Mutated) %>% nrow()
+    )
   }
+
+  geneMutationSensitivity %>%
+    count(Drug, Mutated) %>%
+    filter(n >= 2) %>%
+    select(-n) %>%
+    count(Drug) %>%
+    filter(n == 2) %>%
+    .$Drug %>%
+    map_dfr(calculateDrugSensitivity)
 }
 
+tic()
+
+mutationSensitivity <- mutations %>%
+  count(Gene, Mutated) %>%
+  filter(n >= 2) %>%
+  select(-n) %>%
+  count(Gene) %>%
+  filter(n >= 2) %>%
+  .$Gene %>%
+  future_map_dfr(calculateSensitivity)
+
+toc()
+
+
+# correction for multiple testing
 mutationSensitivity$fdr <- p.adjust(mutationSensitivity$p.value, method = "BH")
 
 
 # write results
-write_tsv(mutationSensitivity, outputFilename)
+mutationSensitivity %>%
+  mutate_at(vars(t.statistic, p.value, mean.mutation, mean.nomutation, fdr), signif, digits = 3) %>%
+  write_tsv(outputFilename)
 
 

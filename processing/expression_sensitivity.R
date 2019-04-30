@@ -5,22 +5,29 @@
 args <- commandArgs(trailing=TRUE)
 
 if (length(args) != 3)
-  stop("Usage: expression_sensitivity.R drug_sensitivity_file expression_data_file output_file")
+  stop("Usage: expression_sensitivity.R drug_sensitivity_file expression_file output_file")
 
 drugSensitivityFilename <- args[1]
 expressionFilename <- args[2]
 outputFilename <- args[3]
 
 
-source("functions.R")
+library(tidyverse)
+library(furrr)
+library(tictoc)
+
+plan(multiprocess)
+
+availableCores()
 
 
 # drug sensitivity data
-drugSensitivity <- readTabDelimitedFile(drugSensitivityFilename, c("Model", "Drug", "AUC"), removeOtherColumns = TRUE)
+drugSensitivity <- read_tsv(drugSensitivityFilename) %>%
+  select(Model, Drug, AUC)
 
 
 # expression data
-expression <- readTabDelimitedFile(expressionFilename, "Gene")
+expression <- read_tsv(expressionFilename)
 
 expression <- expression %>%
   gather(key = Model, value = Expression, -Gene)
@@ -30,70 +37,65 @@ expression <- expression %>%
   filter(!is.na(Expression))
 
 
-# expression sensitivity analysis
+# sensitivity analysis
 
-expressionSensitivity <- data_frame(
-  Gene = character(),
-  Drug = character(),
-  p.value = double(),
-  slope = double(),
-  range.auc = double(),
-  range.expression = double(),
-  n = integer()
-)
-
-drugs <- drugSensitivity %>%
-  select(Drug) %>%
-  arrange(Drug) %>%
-  unique %>%
-  unlist(use.names = FALSE)
-
-genes <- expression %>%
-  select(Gene) %>%
-  arrange(Gene) %>%
-  unique %>%
-  unlist(use.names = FALSE)
-
-geneCount <- 0
-for (gene in genes)
-{
-  geneCount <- geneCount + 1
-  cat(geneCount, "/", length(genes), "\n", sep = "")
+calculateSensitivity <- function(gene) {
 
   geneExpressionSensitivity <- expression %>%
     filter(Gene == gene) %>%
     select(-Gene) %>%
     inner_join(drugSensitivity, by = "Model")
 
-  for (drug in drugs)
-  {
+  calculateDrugSensitivity <- function(drug) {
+
     geneDrugExpressionSensitivity <- filter(geneExpressionSensitivity, Drug == drug)
-    if (nrow(geneDrugExpressionSensitivity) < 3) next
 
     result <- try(lm(AUC ~ Expression, data = geneDrugExpressionSensitivity))
 
-    if (class(result) != "try-error")
-    {
-      coefficients <- summary(result)$coefficients
-      if (nrow(coefficients) != 2) next
+    if (class(result) == "try-error")
+      stop("Error creating linear model for gene ", gene, " and drug ", drug, "\n")
 
-      expressionSensitivity <- expressionSensitivity %>% bind_rows(data_frame(
-        Gene = gene,
-        Drug = drug,
-        p.value = coefficients[2, 4],
-        slope = coefficients[2, 1],
-        range.auc = diff(range(result$model$AUC)),
-        range.expression = diff(range(result$model$Expression)),
-        n = nrow(geneDrugExpressionSensitivity)
-      ))
-    }
+    coefficients <- summary(result)$coefficients
+
+    if (nrow(coefficients) != 2)
+      stop("Unexpected number of coefficients in linear model for gene ", gene, " and drug ", drug, ": ", nrow(coefficients), "\n")
+
+    tibble(
+      Gene = gene,
+      Drug = drug,
+      p.value = coefficients[2, 4],
+      slope = coefficients[2, 1],
+      range.auc = diff(range(result$model$AUC)),
+      range.expression = diff(range(result$model$Expression)),
+      n = nrow(geneDrugExpressionSensitivity)
+    )
   }
+
+  geneExpressionSensitivity %>%
+    count(Drug) %>%
+    filter(n >= 3) %>%
+    .$Drug %>%
+    map_dfr(calculateDrugSensitivity)
 }
 
+tic()
+
+expressionSensitivity <- expression %>%
+  distinct(Gene) %>%
+  arrange(Gene) %>%
+  .$Gene %>%
+  future_map_dfr(calculateSensitivity, .progress = TRUE)
+
+toc()
+
+
+# correction for multiple testing
 expressionSensitivity$fdr <- p.adjust(expressionSensitivity$p.value, method = "BH")
 
 
 # write results
-write_tsv(expressionSensitivity, outputFilename)
+expressionSensitivity %>%
+  mutate_at(vars(p.value, slope, range.auc, range.expression, fdr), signif, digits = 3) %>%
+  write_tsv(outputFilename)
 
 
