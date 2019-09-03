@@ -98,7 +98,7 @@ copyNumberGainSensitivity$fdr <- p.adjust(copyNumberGainSensitivity$p.value, met
 
 # write results
 copyNumberGainSensitivity %>%
-  mutate_at(vars(t.statistic, mean.gain, mean.nogain, fdr), signif, digits = 3) %>%
+  mutate_at(vars(t.statistic, p.value, mean.gain, mean.nogain, fdr), signif, digits = 3) %>%
   write_tsv(outputFilename)
 
 
