@@ -82,7 +82,7 @@ mutationSensitivity <- mutations %>%
   count(Gene) %>%
   filter(n >= 2) %>%
   .$Gene %>%
-  future_map_dfr(calculateSensitivity)
+  future_map_dfr(calculateSensitivity, .progress = TRUE)
 
 toc()
 
