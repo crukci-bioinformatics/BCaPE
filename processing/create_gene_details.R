@@ -1,6 +1,6 @@
 library(tidyverse)
 
-# read hgnc_complete_set.txt from HGNC website
+# read hgnc_complete_set.txt from HGNC website
 hgnc_genes <- read_tsv(
 #  "ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt",
   "hgnc_complete_set.txt",
@@ -39,9 +39,9 @@ gene_symbols <- bind_rows(
   distinct()
 
 # the idea is to create a table of gene symbols with associated gene names and
-# aliases where we have an entry for every distinct gene symbol given in the
+# aliases where we have an entry for every distinct gene symbol given in the
 # HGNC resource regardless of whether these are primary symbols for a gene,
-# previously-used symbols or aliases
+# previously-used symbols or aliases
 
 # note that a gene symbol might refer to more than one gene entry in the HGNC
 # resource in which case the gene name for that symbol is taken from the entry
@@ -49,7 +49,7 @@ gene_symbols <- bind_rows(
 # primary > previous > alias
 
 # select just one gene entry for each symbol based on type: primary > previous > alias
-# e.g. if a symbol is both the primary symbol for a gene and an alias for another gene, the entry for which it is an alias is discarded
+# e.g. if a symbol is both the primary symbol for a gene and an alias for another gene, the entry for which it is an alias is discarded
 gene_details <- gene_symbols %>%
   group_by(symbol) %>%
   arrange(priority) %>%
@@ -57,7 +57,7 @@ gene_details <- gene_symbols %>%
   select(symbol, name, hgnc_id)
 
 # obtain all aliases for each selected gene by joining to the gene symbols data
-# frame created above and collapsing all aliases that aren't the preferred
+# frame created above and collapsing all aliases that aren't the preferred
 # symbol
 gene_details <- gene_details %>%
   left_join(select(gene_symbols, hgnc_id, alias = symbol), by = "hgnc_id") %>%
@@ -65,7 +65,7 @@ gene_details <- gene_details %>%
 
 # collapse rows containing aliases for each gene symbol into a single row where
 # the aliases (exclude the entry matching the gene symbol) are concatenated into
-# a human-readable comma-separated list
+# a human-readable comma-separated list
 gene_details <- gene_details %>%
   group_by(symbol, name) %>%
   arrange(alias) %>%
@@ -73,17 +73,17 @@ gene_details <- gene_details %>%
   ungroup() %>%
   mutate(aliases = ifelse(aliases == "", NA, aliases))
 
-# reorder columns and capitalize column headings
+# reorder columns and capitalize column headings
 gene_details <- gene_details %>%
   select(Symbol = symbol, Aliases = aliases, Name = name)
 
-# read in gene symbols used in each of the data files
+# read in gene symbols used in each of the data files
 genes <- c("ExpressionModels.txt", "PromoterMethylationModels.txt", "SNVsModels.txt", "CNAModels.txt") %>%
   map_dfr(read_tsv, col_types = cols_only(Gene = col_character())) %>%
   distinct() %>%
   rename(Symbol = Gene)
 
-# only write gene details for genes for which there are data
+# only write gene details for genes for which there are data
 genes %>%
   left_join(gene_details, by = "Symbol") %>%
   arrange(Symbol) %>%
