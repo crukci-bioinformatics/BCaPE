@@ -17,6 +17,7 @@ using the `install.packages` function.
 - [furrr](https://cran.r-project.org/web/packages/furrr/index.html) for distributing the processing across multiple CPUs
 - [tictoc](https://cran.r-project.org/web/packages/tictoc/index.html) for timing the processing steps
 - [RSQLite](https://cran.r-project.org/web/packages/RSQLite/index.html) SQLite interface for R
+- [dbplyr](https://cran.r-project.org/web/packages/dbplyr/index.html) dplyr backend for databases
 
 In addition, the SQLite database engine needs to be installed; this can be
 checked as follows.
