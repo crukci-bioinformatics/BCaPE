@@ -6,7 +6,7 @@ fluidPage(
     title = tags$div(
       "Breast Cancer PDTX Encyclopaedia",
       tags$a(
-        href="http://www.cambridgecancer.org.uk", target = "_blank",
+        href="https://www.cruk.cam.ac.uk", target = "_blank",
         tags$div(style = "float:right",
           tags$img(style = "width:250px", src="CRUK_CAMBRIDGE_I_Pos_RGB_300.jpg"),
           tags$img(style = "width:150px; padding:1px; margin-left:5px; margin-bottom:15px; background-color:#221F7F", src="main-logo-small.png")
@@ -798,7 +798,7 @@ fluidPage(
     tags$div(style = "float:right",
       actionLink("navigateToContactUs", "Contact us"),
       "|",
-      tags$a(href = "http://www.cruk.cam.ac.uk/utilities/cri-tandc", target = "_blank", "Terms and Conditions")
+      tags$a(href = "https://www.cruk.cam.ac.uk/terms-and-conditions", target = "_blank", "Terms and Conditions")
     ),
     tags$div(style="line-height:50%;", br())
   )
