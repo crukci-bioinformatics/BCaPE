@@ -10,8 +10,8 @@ The data used in the BCaPE Shiny app are available on [figshare](https://figshar
 
 ### R package dependencies
 
-The R processing scripts require the following R packages which can be installed
-using the R `install.packages` function.
+The R processing scripts require the following packages which can be installed
+using the `install.packages` function.
 
 - [tidyverse](https://www.tidyverse.org) collection of R packages for data science
 - [furrr](https://cran.r-project.org/web/packages/furrr/index.html) for distributing the processing across multiple CPUs
@@ -109,3 +109,80 @@ HCI001|681640|0.103|152.126|2|0.008|150.681
 HCI001|ABT-263|0.497|0.125|2|0.008|49.591
 HCI001|AG-014699|0.235|18.227|5|0.020|123.326
 
+#### SNVsModels.txt
+
+Mutations detected within genes in each PDTX model should also be provided in a
+tabular format as shown below. The first column contains contains genes and all
+subsequent columns contain details of mutations for each PDTX model.
+
+Gene|AB521M|AB551|AB555|AB559|AB580
+----|------|-----|-----|-----|-----
+AGBL5|chr2:27278923_G/A_nonsynonymous SNV|NO|NO|NO|NO
+ALAS1|chr3:52248142_A/ATGGTATTTTTGGTCCTTGAGGAACCACC_frameshift substitution|NO|NO|NO|NO
+APOD|chr3:195306268_G/A_nonsynonymous SNV|NO|NO|NO|NO
+B4GALT2|chr1:44447006_TAGC/T_nonframeshift substitution|NO|NO|chr1:44447006_TAGC/T_nonframeshift substitution|NO
+BNIP3L|chr8:26240683_CACA/C_nonframeshift substitution|NO|NO|NO|NO
+CACNA1F|chrX:49066446_G/A_nonsynonymous SNV|NO|NO|NO|NO
+
+The format expected for mutations is as follows:
+
+Chromosome:Position_ReferenceAllele/AlternateAllele_Type
+
+where everything after the type of mutation is ignored. The ':', '/' and '_'
+characters are used to separate the mutation string into its chromosome,
+position, reference and alternate allele constituents.
+
+Multiple mutations identified within a gene can be listed and need to be
+separated by '//', e.g.
+
+shr13:108518706_TGCTGCTGCC/T_nonframeshift substitution//chr13:108518727_T/C_nonsynonymous SNV
+
+If a gene is not mutated within a given model a value of 'NO' should be given.
+
+#### CNAModels.txt
+
+Copy number states for each gene within each model should be provided in a
+tabular format as shown below. The first column contains contains genes and all
+subsequent columns contain copy number states for each PDTX model.
+
+Gene|AB521M|AB551|AB555|AB559|AB580
+----|------|-----|-----|-----|-----
+DDX11L1|NA|NA|NA|NA|NA
+WASH7P|NA|NA|NA|NA|NA
+MIR6859-1|LOSS|LOSS|UNKNOWN|UNKNOWN|GAIN
+MIR6859-2|LOSS|LOSS|UNKNOWN|UNKNOWN|GAIN
+FAM138A|NA|NA|NA|NA|NA
+FAM138F|NA|NA|NA|NA|NA
+
+Valid values for copy number states are GAIN, LOSS, NEUTRAL (or NEUT), UNKNOWN
+and NA.
+
+#### ExpressionModels.txt
+
+Normalized log2-transformed expression values should be provided in a tabular
+format as shown below. The first column contains contains genes and all
+subsequent columns contain expression values for each PDTX model.
+
+Gene|AB521M|AB551|AB555|AB559|AB580
+----|------|-----|-----|-----|-----
+A1BG|5.862|5.831|5.989|5.953|5.928
+A1CF|5.818|5.965|5.909|6.009|6.063
+A2LD1|7.686|6.931|7.037|7.170|6.208
+A2M|5.572|5.752|5.589|10.123|5.522
+A3GALT2|5.873|5.857|5.965|5.837|5.827
+A4GALT|5.833|5.685|6.563|8.222|5.593
+
+#### PromoterMethylationModels.txt
+
+Methylation values should also be provided in a similar tabular format with the
+first column specifying the gene and subsequent columns for each PDTX model.
+Values are % promoter methylation within the gene for a given model.
+
+Gene|AB521M|AB555|AB559|AB564|AB572
+----|------|-----|-----|-----|-----
+A1BG|70.125|70.104|52.500|82.314|56.986
+A1BG-AS1|76.426|80.026|69.423|84.730|77.039
+A1CF|NA|NA|NA|NA|NA
+A2M|NA|NA|NA|NA|NA
+A2M-AS1|12.278|18.148|1.136|28.292|3.077
+A2ML1|27.643|50.140|50.357|59.101|53.488
