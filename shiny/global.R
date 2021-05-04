@@ -3,10 +3,11 @@ library(dplyr)
 library(shiny)
 library(highcharter)
 library(DT)
+library(RSQLite)
 
 source("plots.R")
 
-db <- src_sqlite("bcape.sqlite")
+db <- dbConnect(SQLite(), "bcape.sqlite")
 
 modelClassifications <- collect(tbl(db, "modelClassifications"))
 
