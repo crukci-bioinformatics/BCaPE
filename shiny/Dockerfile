@@ -5,7 +5,6 @@ MAINTAINER Matt Eldridge "bcape@cruk.cam.ac.uk"
 RUN R -e 'install.packages("RSQLite", repos = "https://cloud.r-project.org")'
 RUN R -e 'install.packages("dbplyr", repos = "https://cloud.r-project.org")'
 RUN R -e 'install.packages("highcharter", repos = "https://cloud.r-project.org")'
-RUN R -e 'install.packages("DT", repos = "https://cloud.r-project.org")'
 
 RUN mkdir /srv/shiny-server/bcape
 RUN mkdir /srv/shiny-server/bcape/www
