@@ -26,7 +26,7 @@ aucDotPlot <- function(aucData,
   )
   ds <- dt %>% list_parse
 
-  labels <- data_frame(
+  labels <- tibble(
     x = c(0.1, 0.9),
     y = c(n + 10, n + 10),
     text = c("Resistant", "Sensitive")
@@ -91,12 +91,12 @@ barPlot <- function(values,
                     colours = NULL
 )
 {
-  counts <- count(data_frame(Value = values), Value)
+  counts <- count(tibble(Value = values), Value)
 
   if (is.null(categories)) categories <- counts$Value
 
   counts <- counts %>%
-    right_join(data_frame(Value = categories), by = "Value") %>%
+    right_join(tibble(Value = categories), by = "Value") %>%
     mutate(n = ifelse(is.na(n), 0, n))
 
   highchart() %>%

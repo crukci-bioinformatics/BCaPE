@@ -1595,13 +1595,13 @@ function(input, output, session) {
   # statistics
 
   statisticsTableData <- reactive({
-    data_frame(type = "Models", count = nrow(modelSelection)) %>%
-      bind_rows(data_frame(type = "Models with drug screening data", count = drugSensitivity %>% select(Model) %>% distinct %>% nrow)) %>%
-      bind_rows(data_frame(type = "Models with mutation data", count = mutations %>% select(Model) %>% distinct %>% collect %>% nrow)) %>%
-      bind_rows(data_frame(type = "Models with copy number data", count = copyNumberStates %>% select(Model) %>% distinct %>% collect %>% nrow)) %>%
-      bind_rows(data_frame(type = "Models with expression data", count = expression %>% select(Model) %>% distinct %>% collect %>% nrow)) %>%
-      bind_rows(data_frame(type = "Models with methylation data", count = methylation %>% select(Model) %>% distinct %>% collect %>% nrow)) %>%
-      bind_rows(data_frame(type = "Number of drugs tested", count = drugSensitivity %>% select(Drug) %>% distinct %>% nrow))
+    tibble(type = "Models", count = nrow(modelSelection)) %>%
+      bind_rows(tibble(type = "Models with drug screening data", count = drugSensitivity %>% select(Model) %>% distinct %>% nrow)) %>%
+      bind_rows(tibble(type = "Models with mutation data", count = mutations %>% select(Model) %>% distinct %>% collect %>% nrow)) %>%
+      bind_rows(tibble(type = "Models with copy number data", count = copyNumberStates %>% select(Model) %>% distinct %>% collect %>% nrow)) %>%
+      bind_rows(tibble(type = "Models with expression data", count = expression %>% select(Model) %>% distinct %>% collect %>% nrow)) %>%
+      bind_rows(tibble(type = "Models with methylation data", count = methylation %>% select(Model) %>% distinct %>% collect %>% nrow)) %>%
+      bind_rows(tibble(type = "Number of drugs tested", count = drugSensitivity %>% select(Drug) %>% distinct %>% nrow))
   })
 
   output$statisticsTable <- renderTable(
