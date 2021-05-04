@@ -94,7 +94,7 @@ its R package dependencies are installed, can be built from the Docker image
 available on Docker Hub as follows:
 
 ```
-singularity build bcape.simg docker://crukcibioinformatics/bcape
+singularity build bcape.sif docker://crukcibioinformatics/bcape
 ```
 
 This does not require Docker to be installed.
@@ -106,7 +106,7 @@ mkdir -p logs
 singularity run \
   -B bcape.sqlite:/srv/shiny-server/bcape/bcape.sqlite \
   -B logs:/var/log/shiny-server \
-  bcape.simg
+  bcape.sif
 ```
 
 ### Google analytics
@@ -153,6 +153,6 @@ singularity run \
   -B bcape.sqlite:/srv/shiny-server/bcape/bcape.sqlite \
   -B analytics.js:/srv/shiny-server/bcape/analytics.js \
   -B logs:/var/log/shiny-server \
-  bcape.simg
+  bcape.sif
 ```
 
